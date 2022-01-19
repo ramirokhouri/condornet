@@ -1,6 +1,7 @@
 # Django
 from django.shortcuts import render
 from django.http import HttpResponse
+from .models import Cliente
 
 
 # Create your views here.
@@ -11,7 +12,8 @@ def nosotros(request):
     return render(request, 'paginas/nosotros.html')
 
 def clientes(request):
-    return render(request, 'clientes/index.html')
+    clientes = Cliente.objects.all()
+    return render(request, 'clientes/index.html', {'clientes': clientes})
 
 def agregar_cliente(request):
     return render(request, 'clientes/crear.html')

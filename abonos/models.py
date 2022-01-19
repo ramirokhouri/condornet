@@ -16,7 +16,8 @@ class Cliente(models.Model):
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return (self.apellido)
+        fila = self.apellido + ", " + self.nombre
+        return fila
 
 class Cobrador(models.Model):
     """Modelo Cobradores"""
@@ -29,7 +30,7 @@ class Cobrador(models.Model):
     activo = models.BooleanField(default=True)
 
     def __str__(self):
-        return (self.nombre)
+        return self.nombre
 
 class Abono(models.Model):
     """Modelo Abonos"""
@@ -57,7 +58,8 @@ class Abono(models.Model):
     concepto = models.CharField(max_length=20, blank=True)
 
     def __str__(self):
-        return (self.monto)
+        fila = str(self.fecha) + ", " + str(self.monto) + ", " + self.cobrador.nombre
+        return fila
 
 class Recaudacion(models.Model):
     """Modelo Recaudación"""
@@ -78,4 +80,5 @@ class Recaudacion(models.Model):
     nota = models.CharField(max_length=100, blank=True)
 
     def __str__(self):
-        return (self.monto)
+        fila = self.cobrador.nombre + ", " + str(self.fecha) + ", " + str(self.monto)
+        return fila

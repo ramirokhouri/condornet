@@ -19,12 +19,14 @@
                 </tr>
             </thead>
             <tbody>
+                {% for cliente in clientes %}
                 <tr>
-                    <td>1</td>
-                    <td>Khouri</td>
-                    <td>Ramiro</td>
+                    <td>{{ cliente.id }}</td>
+                    <td>{{ cliente.apellido }}</td>
+                    <td>{{ cliente.nombre }}</td>
                     <td><a name="" id="" class="btn btn-primary" href="{% url 'editar_cliente' %}" role="button">Editar</a> <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a></td>
                 </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>
