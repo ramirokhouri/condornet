@@ -24,7 +24,8 @@
                     <td>{{ cliente.id }}</td>
                     <td>{{ cliente.apellido }}</td>
                     <td>{{ cliente.nombre }}</td>
-                    <td><a name="" id="" class="btn btn-primary" href="{% url 'editar_cliente' %}" role="button">Editar</a> <a name="" id="" class="btn btn-danger" href="#" role="button">Borrar</a></td>
+                    <td><a name="" id="" class="btn btn-primary" href="{% url 'editar_cliente' cliente.id%}" role="button">Editar</a>
+                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}" role="button">Borrar</a></td>
                 </tr>
                 {% endfor %}
             </tbody>

@@ -10,6 +10,8 @@ urlpatterns = [
     path('clientes/', views.clientes, name='clientes'),
     path('clientes/agregar_cliente/', views.agregar_cliente, name='agregar_cliente'),
     path('clientes/editar_cliente/', views.editar_cliente, name='editar_cliente'),
+    path('eliminar_cliente/<int:id>', views.eliminar_cliente, name='eliminar_cliente'),
+    path('editar_cliente/<int:id>', views.editar_cliente, name='editar_cliente'),
 
     # abonos
 
