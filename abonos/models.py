@@ -2,7 +2,7 @@
 
 # Django
 from django.db import models
-from django.db.models.deletion import DO_NOTHING
+from django.db.models.deletion import DO_NOTHING, SET_NULL
 
 class Cliente(models.Model):
     """Modelo Clientes"""
@@ -36,15 +36,15 @@ class Abono(models.Model):
     """Modelo Abonos"""
     cliente = models.ForeignKey(
         'Cliente',
-        blank=False,
-        on_delete=DO_NOTHING,
-        default=''
+        blank=True,
+        null=True,
+        on_delete=SET_NULL
         )
     cobrador = models.ForeignKey(
         'Cobrador',
-        blank=False,
-        on_delete=DO_NOTHING,
-        default=''
+        blank=True,
+        null=True,
+        on_delete=SET_NULL
         )
     
     fecha = models.DateField(
@@ -79,8 +79,8 @@ class Recaudacion(models.Model):
     cobrador = models.ForeignKey(
         'Cobrador',
         blank=False,
-        on_delete=DO_NOTHING,
-        default=''
+        null=True,
+        on_delete=SET_NULL
         )
     
     fecha = models.DateField(
