@@ -34,7 +34,6 @@ class Cobrador(models.Model):
 
 class Abono(models.Model):
     """Modelo Abonos"""
-
     cliente = models.ForeignKey(
         'Cliente',
         blank=False,

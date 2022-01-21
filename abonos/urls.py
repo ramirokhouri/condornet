@@ -18,4 +18,9 @@ urlpatterns = [
     # recaudacion
 
     # cobradores
+    path('cobradores/', views.cobradores, name='cobradores'),
+    path('cobradores/agregar_cobrador/', views.agregar_cobrador, name='agregar_cobrador'),
+    path('cobradores/editar_cobrador/', views.editar_cobrador, name='editar_cobrador'),
+    path('eliminar_cobrador/<int:id>', views.eliminar_cobrador, name='eliminar_cobrador'),
+    path('editar_cobrador/<int:id>', views.editar_cobrador, name='editar_cobrador'),
 ]

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block titulo %} Lista de Cobradores {% endblock %}
+
+{% block contenido %}
+
+<div class="card">
+    <div class="card-header">
+        <a name="" id="" class="btn btn-success" href="{% url 'agregar_cobrador' %}" role="button">Agregar Cobrador</a>
+    </div>
+    <div class="card-body">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>NOMBRE</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for cobrador in cobradores %}
+                <tr>
+                    <td>{{ cobrador.id }}</td>
+                    <td>{{ cobrador.nombre }}</td>
+                    <td><a name="" id="" class="btn btn-primary" href="{% url 'editar_cobrador' cobrador.id%}" role="button">Editar</a>
+                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cobrador' cobrador.id %}" role="button">Borrar</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-muted">
+    </div>
+</div>
+
+{% endblock %}
