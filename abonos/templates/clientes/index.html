@@ -22,7 +22,7 @@
                 {% for cliente in clientes %}
                 <tr>
                     <td>{{ cliente.id }}</td>
-                    <td>{{ cliente.apellido }}</td>
+                    <td><a href="{% url 'abonos' %}?query_cliente={{cliente.id}}">{{ cliente.apellido }}</a></td>
                     <td>{{ cliente.nombre }}</td>
                     <td><a name="" id="" class="btn btn-primary" href="{% url 'editar_cliente' cliente.id%}" role="button">Editar</a>
                         <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}" role="button">Borrar</a></td>

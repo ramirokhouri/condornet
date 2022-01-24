@@ -25,10 +25,15 @@
 
       <div class="container">
           <div class="row">
-              <div class="col-12">
-                <br/>
-                {% block contenido %}  {% endblock %}
-              </div>
+            <div class="col-2">
+              <br/>
+              {% block sidebar %}  {% endblock %}
+            </div>
+            <div class="col-10">
+              <br/>
+              {% block contenido %}  {% endblock %}
+            </div>
+
           </div>
       </div>
     <!-- Bootstrap JavaScript Libraries -->

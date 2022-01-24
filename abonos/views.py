@@ -61,8 +61,24 @@ def eliminar_cobrador(request, id):
 
 # Recaudacion
 def recaudaciones(request):
-    recaudaciones = Recaudacion.objects.all()
-    return render(request, 'recaudaciones/index.html', {'recaudaciones': recaudaciones})
+
+    # filtro cobrador
+    if request.GET.get('query_cobrador') != None:
+        query_cobrador = request.GET.get('query_cobrador')
+        recaudaciones = Recaudacion.objects.filter(cobrador__id=query_cobrador)
+
+    # filtro mes
+    if request.GET.get('query_mes') != None:
+        query_mes = request.GET.get('query_mes')
+        recaudaciones = Recaudacion.objects.filter(fecha__month=query_mes)
+
+    if request.GET.get('query_cobrador') == None and request.GET.get('query_mes') == None:
+        recaudaciones = Recaudacion.objects.all()
+    
+    cobradores = Cobrador.objects.all()
+    return render(request, 'recaudaciones/index.html', {'recaudaciones': recaudaciones,
+    'cobradores': cobradores
+    })
 def agregar_recaudacion(request):
     formulario = RecaudacionForm(request.POST or None, request.FILES or None)
     if formulario.is_valid():
@@ -83,8 +99,29 @@ def eliminar_recaudacion(request, id):
 
 # Abonos
 def abonos(request):
-    abonos = Abono.objects.all()
-    return render(request, 'abonos/index.html', {'abonos': abonos})
+
+    # filtro cobrador
+    if request.GET.get('query_cobrador') != None:
+        query_cobrador = request.GET.get('query_cobrador')
+        abonos = Abono.objects.filter(cobrador__id = query_cobrador)
+    
+    # filtro mes
+    if request.GET.get('query_mes') != None:
+        query_mes = request.GET.get('query_mes')
+        abonos = Abono.objects.filter(fecha__month = query_mes)
+
+    #filtro cliente
+    if request.GET.get('query_cliente') != None:
+        query_cliente = request.GET.get('query_cliente')
+        abonos = Abono.objects.filter(cliente__id = query_cliente)
+    
+    if request.GET.get('query_cliente') == None and request.GET.get('query_cobrador') == None and request.GET.get('query_mes') == None:
+        abonos = Abono.objects.all()
+    
+    cobradores = Cobrador.objects.all()
+    return render(request, 'abonos/index.html', {'abonos': abonos,
+    'cobradores': cobradores
+    })
 def agregar_abono(request):
     formulario = AbonoForm(request.POST or None, request.FILES or None)
     if formulario.is_valid():

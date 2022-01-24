@@ -2,6 +2,47 @@
 
 {% block titulo %} Lista de Abonos {% endblock %}
 
+{% block sidebar %}
+
+<div class="card">
+    <div class="card-header">
+        <h5>COBRADORES</h5>
+    </div>
+    <div class="card-body">
+        <div class="list-group">
+            <li class="list-group-item"><a href="{% url 'abonos' %}">TODOS</a></li>
+            {% for cobrador in cobradores %}
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_cobrador={{cobrador.id}}">{{ cobrador.nombre }}</a></li>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<br>
+<div class="card">
+    <div class="card-header">
+        <h5>MESES</h5>
+    </div>
+    <div class="card-body">
+        <div class="list-group">
+            <li class="list-group-item"><a href="{% url 'abonos' %}">Todos</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=01">Enero</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=02">Febrero</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=03">Marzo</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=04">Abril</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=05">Mayo</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=06">Junio</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=07">Julio</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=08">Agosto</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=09">Septiembre</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=10">Octubre</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=11">Noviembre</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=12">Diciembre</a></li>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
 {% block contenido %}
 
 <div class="card">
