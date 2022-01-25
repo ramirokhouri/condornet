@@ -90,11 +90,16 @@ def recaudaciones(request):
     'cobradores': cobradores
     })
 def agregar_recaudacion(request):
+    cobradores = Cobrador.objects.all()
     formulario = RecaudacionForm(request.POST or None, request.FILES or None)
+    context = {
+        'formulario': formulario,
+        'cobradores': cobradores
+    }
     if formulario.is_valid():
         formulario.save()
         return redirect('recaudaciones')
-    return render(request, 'recaudaciones/crear.html', {'formulario': formulario})
+    return render(request, 'recaudaciones/crear.html', context)
 def editar_recaudacion(request, id):
     recaudacion = Recaudacion.objects.get(id=id)
     formulario = RecaudacionForm(request.POST or None, request.FILES or None, instance=recaudacion)
@@ -133,18 +138,32 @@ def abonos(request):
     'cobradores': cobradores
     })
 def agregar_abono(request):
+    cobradores = Cobrador.objects.all()
+    clientes = Cliente.objects.all()
     formulario = AbonoForm(request.POST or None, request.FILES or None)
+    context = {
+        'formulario':formulario,
+        'cobradores':cobradores,
+        'clientes':clientes
+    }
     if formulario.is_valid():
         formulario.save()
         return redirect('abonos')
-    return render(request, 'abonos/crear.html', {'formulario': formulario})
+    return render(request, 'abonos/crear.html', context)
 def editar_abono(request, id):
     abono = Abono.objects.get(id=id)
     formulario = AbonoForm(request.POST or None, request.FILES or None, instance=abono)
+    cobradores = Cobrador.objects.all()
+    clientes = Cliente.objects.all()
+    context = {
+        'formulario':formulario,
+        'cobradores':cobradores,
+        'clientes':clientes
+    }
     if formulario.is_valid() and request.POST:
         formulario.save()
         return redirect('abonos')
-    return render(request, 'abonos/editar.html', {'formulario': formulario})
+    return render(request, 'abonos/editar.html', context)
 def eliminar_abono(request, id):
     abono = Abono.objects.get(id=id)
     abono.delete()

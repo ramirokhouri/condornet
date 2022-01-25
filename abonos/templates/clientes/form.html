@@ -1,6 +1,6 @@
 <form enctype="multipart/form-data" method="post">
   {% csrf_token %}
-  {% for campo in formulario %}
+  <!-- {% for campo in formulario %}
 
     <div class="mb-3">
       <label for="" class="form-label">{{ campo.label }}</label>
@@ -19,7 +19,38 @@
 
     <div class="col-12 help-text"> {{ campo.errors }} </div>
     
-  {% endfor %}
+  {% endfor %} -->
+
+  <div class="mb-3">
+    <label for="" class="form-label">Apellido</label>
+    <input
+    type="text"
+    class="form-control"
+    name="apellido"
+    id="apellido"
+    aria-describedby="helpId"
+    placeholder="Apellido">
+  </div>
+
+  <div class="mb-3">
+    <label for="" class="form-label">Nombre</label>
+    <input
+    type="text"
+    class="form-control"
+    name="nombre"
+    id="nombre"
+    aria-describedby="helpId"
+    placeholder="Nombre">
+  </div>
+
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" name="activo" id="activo" value="True" checked>
+    <label class="form-check-label" for="">
+      Activo
+    </label>
+  </div>
+
+  <div class="col-12 help-text"> {{ formulario.errors }} </div>
 
   <input
   name=""

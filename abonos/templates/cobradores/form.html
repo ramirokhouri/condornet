@@ -1,25 +1,25 @@
 <form enctype="multipart/form-data" method="post">
   {% csrf_token %}
-  {% for campo in formulario %}
 
-    <div class="mb-3">
-      <label for="" class="form-label">{{ campo.label }}</label>
-      
-      <input
-      type="{{ campo.field.widget.input_type }}"
-      class="form-control"
-      name="{{ campo.name }}"
-      id=""
-      aria-describedby="helpId"
-      placeholder="{{ campo.label }}"
-      value="{{ campo.value | default:'' }}"
-      />
+  <div class="mb-3">
+    <label for="" class="form-label">Nombre</label>
+    <input
+    type="text"
+    class="form-control"
+    name="nombre"
+    id="nombre"
+    aria-describedby="helpId"
+    placeholder="Nombre">
+  </div>
 
-    </div>
+  <div class="form-check">
+    <input type="checkbox" class="form-check-input" name="activo" id="activo" value="True" checked>
+    <label class="form-check-label" for="">
+      Activo
+    </label>
+  </div>
 
-    <div class="col-12 help-text"> {{ campo.errors }} </div>
-    
-  {% endfor %}
+  <div class="col-12 help-text"> {{ formulario.errors }} </div>
 
   <input
   name=""

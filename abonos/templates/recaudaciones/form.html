@@ -1,25 +1,48 @@
 <form enctype="multipart/form-data" method="post">
   {% csrf_token %}
-  {% for campo in formulario %}
+  <div class="mb-3">
+    <label for="" class="form-label">Cobrador</label>
+    <select class="form-control" name="cobrador" id="cobrador">
+      {% for cobrador in cobradores %}
+      <option value={{cobrador.id}}>{{cobrador.nombre}}</option>
+      {% endfor %}
+    </select>
+  </div>
 
-    <div class="mb-3">
-      <label for="" class="form-label">{{ campo.label }}</label>
-      
-      <input
-      type="{{ campo.field.widget.input_type }}"
-      class="form-control"
-      name="{{ campo.name }}"
-      id=""
-      aria-describedby="helpId"
-      placeholder="{{ campo.label }}"
-      value="{{ campo.value | default:'' }}"
-      />
+  <div class="mb-3">
+    <label for="" class="form-label">Fecha</label>
+    <input
+    type="date"
+    class="form-control"
+    name="fecha"
+    id="fecha"
+    aria-describedby="helpId"
+    placeholder="">
+  </div>
 
-    </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Monto</label>
+    <input
+    type="number"
+    class="form-control"
+    name="monto"
+    id="monto"
+    aria-describedby="helpId"
+    placeholder="1000,00">
+  </div>
 
-    <div class="col-12 help-text"> {{ campo.errors }} </div>
-    
-  {% endfor %}
+  <div class="mb-3">
+    <label for="" class="form-label">Nota</label>
+    <input
+    type="text"
+    class="form-control"
+    name="nota"
+    id="nota"
+    aria-describedby="helpId"
+    placeholder="Nota">
+  </div>
+
+  <div class="col-12 help-text"> {{ formulario.errors }} </div>
 
   <input
   name=""
@@ -33,5 +56,5 @@
   class="btn btn-primary"
   href="{% url 'recaudaciones' %}"
   role="button">Cancelar</a>
-
+ 
 </form>

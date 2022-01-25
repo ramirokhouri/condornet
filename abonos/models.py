@@ -36,13 +36,11 @@ class Abono(models.Model):
     """Modelo Abonos"""
     cliente = models.ForeignKey(
         'Cliente',
-        blank=True,
         null=True,
         on_delete=SET_NULL
         )
     cobrador = models.ForeignKey(
         'Cobrador',
-        blank=True,
         null=True,
         on_delete=SET_NULL
         )
