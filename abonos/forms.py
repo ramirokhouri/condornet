@@ -17,7 +17,6 @@ class AbonoForm(forms.ModelForm):
         fields = '__all__'
 
 class RecaudacionForm(forms.ModelForm):
-    cobrador = forms.ChoiceField(widget=forms.Select())
     class Meta:
         model = Recaudacion
-        fields = ['cobrador']
+        fields = '__all__'
