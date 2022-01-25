@@ -18,7 +18,12 @@ def nosotros(request):
 # Clientes
 def clientes(request):
     clientes = Cliente.objects.all()
-    return render(request, 'clientes/index.html', {'clientes': clientes})
+    clientes_cuenta = clientes.count()
+    context = {
+        'clientes': clientes,
+        'clientes_cuenta': clientes_cuenta
+    }
+    return render(request, 'clientes/index.html', context)
 def agregar_cliente(request):
     formulario = ClienteForm(request.POST or None, request.FILES or None)
     if formulario.is_valid():
@@ -40,7 +45,12 @@ def eliminar_cliente(request, id):
 # Cobradores
 def cobradores(request):
     cobradores = Cobrador.objects.all()
-    return render(request, 'cobradores/index.html', {'cobradores': cobradores})
+    cobradores_cuenta = cobradores.count()
+    context = {
+        'cobradores': cobradores,
+        'cobradores_cuenta': cobradores_cuenta
+    }
+    return render(request, 'cobradores/index.html', context)
 def agregar_cobrador(request):
     formulario = CobradorForm(request.POST or None, request.FILES or None)
     if formulario.is_valid():

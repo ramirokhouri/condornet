@@ -64,7 +64,7 @@
                 {% for recaudacion in recaudaciones %}
                 <tr>
                     <td>{{ recaudacion.id }}</td>
-                    <td>{{ recaudacion.fecha }}</td>
+                    <td>{{ recaudacion.fecha|date:"d/m/Y" }}</td>
                     <td>{{ recaudacion.cobrador.nombre }}</td>
                     <td>{{ recaudacion.monto }}</td>
                     <td>{{ recaudacion.nota }}</td>

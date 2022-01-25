@@ -67,7 +67,7 @@
                 {% for abono in abonos %}
                 <tr>
                     <td>{{ abono.id }}</td>
-                    <td>{{ abono.fecha }}</td>
+                    <td>{{ abono.fecha|date:"d/m/Y" }}</td>
                     <td>{{ abono.monto }}</td>
                     <td>{{ abono.cliente.apellido }} , {{ abono.cliente.nombre }}</td>
                     <td>{{ abono.cobrador.nombre }}</td>
