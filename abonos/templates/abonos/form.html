@@ -3,6 +3,9 @@
   <div class="mb-3">
     <label for="" class="form-label">Cliente</label>
     <select class="form-control" name="cliente" id="cliente">
+      {% if abono is not None %}
+      <option value={{abono.cliente}}>{{abono.cliente}}</option>
+      {%endif%}
       {% for cliente in clientes %}
       <option value={{cliente.id}}>{{cliente.apellido}}, {{cliente.nombre}}</option>
       {% endfor %}
@@ -12,6 +15,9 @@
   <div class="mb-3">
     <label for="" class="form-label">Cobrador</label>
     <select class="form-control" name="cobrador" id="cobrador">
+      {% if abono is not None %}
+      <option value={{abono.cobrador}}>{{abono.cobrador}}</option>
+      {%endif%}
       {% for cobrador in cobradores %}
       <option value={{cobrador.id}}>{{cobrador.nombre}}</option>
       {% endfor %}
@@ -26,7 +32,8 @@
     name="fecha"
     id="fecha"
     aria-describedby="helpId"
-    placeholder="">
+    placeholder=""
+    value="{{ abono.fecha | default:''}}">
   </div>
 
   <div class="mb-3">
@@ -37,7 +44,8 @@
     name="monto"
     id="monto"
     aria-describedby="helpId"
-    placeholder="1000,00">
+    placeholder="1000,00"
+    value="{{ abono.monto | default:''}}">
   </div>
 
   <div class="mb-3">
@@ -48,7 +56,8 @@
     name="concepto"
     id="concepto"
     aria-describedby="helpId"
-    placeholder="Nota">
+    placeholder="Concepto"
+    value="{{ abono.concepto | default:''}}">
   </div>
 
   <div class="mb-3">
@@ -59,7 +68,8 @@
     name="nota"
     id="nota"
     aria-describedby="helpId"
-    placeholder="Nota">
+    placeholder="Nota"
+    value="{{ abono.nota | default:''}}">
   </div>
 
   <div class="col-12 help-text"> {{ formulario.errors }} </div>

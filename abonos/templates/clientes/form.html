@@ -29,7 +29,8 @@
     name="apellido"
     id="apellido"
     aria-describedby="helpId"
-    placeholder="Apellido">
+    placeholder="Apellido"
+    value="{{ cliente.apellido | default:''}}">
   </div>
 
   <div class="mb-3">
@@ -40,7 +41,8 @@
     name="nombre"
     id="nombre"
     aria-describedby="helpId"
-    placeholder="Nombre">
+    placeholder="Nombre"
+    value="{{ cliente.nombre | default:''}}">
   </div>
 
   <div class="form-check">

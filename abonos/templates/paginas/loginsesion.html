@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block titulo %} Iniciar Sesión {% endblock %}
+
+{% block contenido %}
+
+<div class="card">
+    <div class="card-header">
+        Ingrese usuario y contraseña
+    </div>
+    <div class="card-body">
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+          
+            <div class="mb-3">
+              <label for="" class="form-label">Usuario</label>
+              <input
+              type="text"
+              class="form-control"
+              name="username"
+              id="username"
+              aria-describedby="helpId"
+              placeholder="Usuario">
+            </div>
+
+            <div class="mb-3">
+                <label for="" class="form-label">Contraseña</label>
+                <input
+                type="password"
+                class="form-control"
+                name="password"
+                id="password"
+                aria-describedby="helpId"
+                placeholder="Contraseña">
+            </div>
+
+            {% if messages %}
+            <ul class="messages">
+              {% for message in messages %}
+              <li>{{ message }}</li>
+              {% endfor %}
+            </ul>
+            {% endif %}
+            
+            <input
+            name=""
+            id=""
+            class="btn btn-success"
+            type="submit"
+            value="Ingresar">
+          
+          </form>
+    </div>
+    <div class="card-footer text-muted">
+    </div>
+</div>
+
+{% endblock %}

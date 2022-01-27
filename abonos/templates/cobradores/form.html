@@ -10,12 +10,16 @@
     name="nombre"
     id="nombre"
     aria-describedby="helpId"
-    placeholder="Nombre">
+    placeholder="Nombre"
+    value="{{ cobrador.nombre | default:''}}">
   </div>
 
   <div class="mb-3">
     <label for="" class="form-label">Usuario</label>
     <select class="form-control" name="usuario" id="usuario">
+      {% if cobrador is not None %}
+      <option value={{cobrador.usuario}}>{{cobrador.usuario}}</option>
+      {%endif%}
       {% for usuario in usuarios %}
       <option value={{usuario.id}}>{{usuario.username}}</option>
       {% endfor %}

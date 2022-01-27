@@ -3,6 +3,9 @@
   <div class="mb-3">
     <label for="" class="form-label">Cobrador</label>
     <select class="form-control" name="cobrador" id="cobrador">
+      {% if recaudacion is not None %}
+      <option value={{recaudacion.cobrador}}>{{recaudacion.cobrador}}</option>
+      {% endif %}
       {% for cobrador in cobradores %}
       <option value={{cobrador.id}}>{{cobrador.nombre}}</option>
       {% endfor %}
@@ -17,7 +20,8 @@
     name="fecha"
     id="fecha"
     aria-describedby="helpId"
-    placeholder="">
+    placeholder=""
+    value="{{ recaudacion.fecha | default:''}}">
   </div>
 
   <div class="mb-3">
@@ -28,7 +32,8 @@
     name="monto"
     id="monto"
     aria-describedby="helpId"
-    placeholder="1000,00">
+    placeholder="1000,00"
+    value="{{ recaudacion.monto | default:''}}">
   </div>
 
   <div class="mb-3">
@@ -39,7 +44,8 @@
     name="nota"
     id="nota"
     aria-describedby="helpId"
-    placeholder="Nota">
+    placeholder="Nota"
+    value="{{ recaudacion.nota | default:''}}">
   </div>
 
   <div class="col-12 help-text"> {{ formulario.errors }} </div>
