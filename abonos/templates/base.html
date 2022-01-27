@@ -38,6 +38,13 @@
             </div>
             <div class="col-10">
               <br/>
+              {% if messages %}
+              <ul class="messages">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
               {% block contenido %}  {% endblock %}
             </div>
 
