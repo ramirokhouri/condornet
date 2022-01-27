@@ -27,6 +27,7 @@
                 <tr>
                     <th>ID</th>
                     <th>NOMBRE</th>
+                    <th>USUARIO</th>
                     <th>ACCIONES</th>
                 </tr>
             </thead>
@@ -35,6 +36,7 @@
                 <tr>
                     <td>{{ cobrador.id }}</td>
                     <td>{{ cobrador.nombre }}</td>
+                    <td>{{ cobrador.usuario }}</td>
                     <td><a name="" id="" class="btn btn-primary" href="{% url 'editar_cobrador' cobrador.id%}" role="button">Editar</a>
                         <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cobrador' cobrador.id %}" role="button">Borrar</a></td>
                 </tr>

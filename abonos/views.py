@@ -1,6 +1,7 @@
 # Django
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib.auth.models import User
 
 # App
 from .models import Cliente, Cobrador, Abono, Recaudacion
@@ -53,17 +54,27 @@ def cobradores(request):
     return render(request, 'cobradores/index.html', context)
 def agregar_cobrador(request):
     formulario = CobradorForm(request.POST or None, request.FILES or None)
+    usuarios = User.objects.all()
+    context = {
+        'formulario': formulario,
+        'usuarios': usuarios
+    }
     if formulario.is_valid():
         formulario.save()
         return redirect('cobradores')
-    return render(request, 'cobradores/crear.html', {'formulario': formulario})
+    return render(request, 'cobradores/crear.html', context)
 def editar_cobrador(request, id):
     cobrador = Cobrador.objects.get(id=id)
+    usuarios = User.objects.all()
     formulario = CobradorForm(request.POST or None, request.FILES or None, instance=cobrador)
+    context = {
+        'formulario': formulario,
+        'usuarios': usuarios
+    }
     if formulario.is_valid() and request.POST:
         formulario.save()
         return redirect('cobradores')
-    return render(request, 'cobradores/editar.html', {'formulario': formulario})
+    return render(request, 'cobradores/editar.html', context)
 def eliminar_cobrador(request, id):
     cobrador = Cobrador.objects.get(id=id)
     cobrador.delete()
@@ -142,9 +153,9 @@ def agregar_abono(request):
     clientes = Cliente.objects.all()
     formulario = AbonoForm(request.POST or None, request.FILES or None)
     context = {
-        'formulario':formulario,
-        'cobradores':cobradores,
-        'clientes':clientes
+        'formulario': formulario,
+        'cobradores': cobradores,
+        'clientes': clientes,
     }
     if formulario.is_valid():
         formulario.save()

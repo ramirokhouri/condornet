@@ -3,6 +3,7 @@
 # Django
 from django.db import models
 from django.db.models.deletion import DO_NOTHING, SET_NULL
+from django.contrib.auth.models import User
 
 class Cliente(models.Model):
     """Modelo Clientes"""
@@ -28,6 +29,8 @@ class Cobrador(models.Model):
     modificado = models.DateTimeField(auto_now=True)
 
     activo = models.BooleanField(default=True, verbose_name="activo")
+
+    usuario = models.ForeignKey(User,null=True, on_delete=SET_NULL)
 
     def __str__(self):
         return self.nombre
