@@ -28,7 +28,9 @@
                     <th>ID</th>
                     <th>APELLIDO</th>
                     <th>NOMBRE</th>
+                    {% if request.user.is_superuser %}
                     <th>ACCIONES</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -37,8 +39,11 @@
                     <td>{{ cliente.id }}</td>
                     <td><a href="{% url 'abonos' %}?query_cliente={{cliente.id}}">{{ cliente.apellido }}</a></td>
                     <td>{{ cliente.nombre }}</td>
+                    {% if request.user.is_superuser %}
                     <td><a name="" id="" class="btn btn-primary" href="{% url 'editar_cliente' cliente.id%}" role="button">Editar</a>
-                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}" role="button">Borrar</a></td>
+                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}" role="button">Borrar</a>
+                    </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>

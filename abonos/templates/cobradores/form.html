@@ -18,7 +18,7 @@
     <label for="" class="form-label">Usuario</label>
     <select class="form-control" name="usuario" id="usuario">
       {% if cobrador is not None %}
-      <option value={{cobrador.usuario}}>{{cobrador.usuario}}</option>
+      <option value={{cobrador.usuario.id}}>{{cobrador.usuario}}</option>
       {%endif%}
       {% for usuario in usuarios %}
       <option value={{usuario.id}}>{{usuario.username}}</option>

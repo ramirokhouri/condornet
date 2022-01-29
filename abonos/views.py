@@ -45,7 +45,7 @@ def inicio(request):
 
 # Clientes
 def clientes(request):
-    clientes = Cliente.objects.all()
+    clientes = Cliente.objects.all().order_by('-creado')
     clientes_cuenta = clientes.count()
     context = {
         'clientes': clientes,
@@ -79,7 +79,7 @@ def eliminar_cliente(request, id):
 
 # Cobradores
 def cobradores(request):
-    cobradores = Cobrador.objects.all()
+    cobradores = Cobrador.objects.all().order_by('-creado')
     cobradores_cuenta = cobradores.count()
     context = {
         'cobradores': cobradores,
@@ -124,20 +124,23 @@ def recaudaciones(request):
     # filtro cobrador
     if request.GET.get('query_cobrador') != None:
         query_cobrador = request.GET.get('query_cobrador')
-        recaudaciones = Recaudacion.objects.filter(cobrador__id=query_cobrador)
+        recaudaciones = Recaudacion.objects.filter(cobrador__id=query_cobrador).order_by('-creado')
 
     # filtro mes
     if request.GET.get('query_mes') != None:
         query_mes = request.GET.get('query_mes')
-        recaudaciones = Recaudacion.objects.filter(fecha__month=query_mes)
+        recaudaciones = Recaudacion.objects.filter(fecha__month=query_mes).order_by('-creado')
 
     if request.GET.get('query_cobrador') == None and request.GET.get('query_mes') == None:
-        recaudaciones = Recaudacion.objects.all()
+        recaudaciones = Recaudacion.objects.all().order_by('-creado')
     
     cobradores = Cobrador.objects.all()
-    return render(request, 'recaudaciones/index.html', {'recaudaciones': recaudaciones,
-    'cobradores': cobradores
-    })
+
+    context = {
+        'recaudaciones': recaudaciones,
+        'cobradores': cobradores,
+    }
+    return render(request, 'recaudaciones/index.html', context)
 @login_required(login_url='login')
 def agregar_recaudacion(request):
     cobradores = Cobrador.objects.all()
@@ -174,25 +177,27 @@ def abonos(request):
     # filtro cobrador
     if request.GET.get('query_cobrador') != None:
         query_cobrador = request.GET.get('query_cobrador')
-        abonos = Abono.objects.filter(cobrador__id = query_cobrador)
+        abonos = Abono.objects.filter(cobrador__id = query_cobrador).order_by('-creado')
     
     # filtro mes
     if request.GET.get('query_mes') != None:
         query_mes = request.GET.get('query_mes')
-        abonos = Abono.objects.filter(fecha__month = query_mes)
+        abonos = Abono.objects.filter(fecha__month = query_mes).order_by('-creado')
 
     #filtro cliente
     if request.GET.get('query_cliente') != None:
         query_cliente = request.GET.get('query_cliente')
-        abonos = Abono.objects.filter(cliente__id = query_cliente)
+        abonos = Abono.objects.filter(cliente__id = query_cliente).order_by('-creado')
     
     if request.GET.get('query_cliente') == None and request.GET.get('query_cobrador') == None and request.GET.get('query_mes') == None:
-        abonos = Abono.objects.all()
+        abonos = Abono.objects.all().order_by('-creado')
     
     cobradores = Cobrador.objects.all()
-    return render(request, 'abonos/index.html', {'abonos': abonos,
-    'cobradores': cobradores
-    })
+    context = {
+        'abonos': abonos,
+        'cobradores': cobradores,
+    }
+    return render(request, 'abonos/index.html', context)
 @login_required(login_url='login')
 def agregar_abono(request):
     cobradores = Cobrador.objects.all()

@@ -4,7 +4,7 @@
     <label for="" class="form-label">Cobrador</label>
     <select class="form-control" name="cobrador" id="cobrador">
       {% if recaudacion is not None %}
-      <option value={{recaudacion.cobrador}}>{{recaudacion.cobrador}}</option>
+      <option value={{recaudacion.cobrador.id}}>{{recaudacion.cobrador}}</option>
       {% endif %}
       {% for cobrador in cobradores %}
       <option value={{cobrador.id}}>{{cobrador.nombre}}</option>

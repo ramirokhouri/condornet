@@ -4,7 +4,7 @@
     <label for="" class="form-label">Cliente</label>
     <select class="form-control" name="cliente" id="cliente">
       {% if abono is not None %}
-      <option value={{abono.cliente}}>{{abono.cliente}}</option>
+      <option value={{abono.cliente.id}}>{{abono.cliente}}</option>
       {%endif%}
       {% for cliente in clientes %}
       <option value={{cliente.id}}>{{cliente.apellido}}, {{cliente.nombre}}</option>
@@ -16,7 +16,7 @@
     <label for="" class="form-label">Cobrador</label>
     <select class="form-control" name="cobrador" id="cobrador">
       {% if abono is not None %}
-      <option value={{abono.cobrador}}>{{abono.cobrador}}</option>
+      <option value={{abono.cobrador.id}}>{{abono.cobrador}}</option>
       {%endif%}
       {% for cobrador in cobradores %}
       <option value={{cobrador.id}}>{{cobrador.nombre}}</option>

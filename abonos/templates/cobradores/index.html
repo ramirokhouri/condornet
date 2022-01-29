@@ -28,7 +28,11 @@
                     <th>ID</th>
                     <th>NOMBRE</th>
                     <th>USUARIO</th>
+                    {% if request.user.is_superuser %}
+                    <th>CREADO</th>
+                    <th>EDITADO</th>
                     <th>ACCIONES</th>
+                    {% endif %}
                 </tr>
             </thead>
             <tbody>
@@ -37,8 +41,14 @@
                     <td>{{ cobrador.id }}</td>
                     <td>{{ cobrador.nombre }}</td>
                     <td>{{ cobrador.usuario }}</td>
-                    <td><a name="" id="" class="btn btn-primary" href="{% url 'editar_cobrador' cobrador.id%}" role="button">Editar</a>
-                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cobrador' cobrador.id %}" role="button">Borrar</a></td>
+                    {% if request.user.is_superuser %}
+                    <td>{{ cobrador.creado }}</td>
+                    <td>{{ cobrador.editado }}</td>
+                    <td>
+                        <a name="" id="" class="btn btn-primary" href="{% url 'editar_cobrador' cobrador.id%}" role="button">Editar</a>
+                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cobrador' cobrador.id %}" role="button">Borrar</a>
+                    </td>
+                    {% endif %}
                 </tr>
                 {% endfor %}
             </tbody>
