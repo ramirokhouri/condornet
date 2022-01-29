@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
+from django.db.models import Sum
 # App
 from .models import Cliente, Cobrador, Abono, Recaudacion
 from .forms import ClienteForm, CobradorForm, AbonoForm, RecaudacionForm
@@ -134,11 +135,13 @@ def recaudaciones(request):
     if request.GET.get('query_cobrador') == None and request.GET.get('query_mes') == None:
         recaudaciones = Recaudacion.objects.all().order_by('-creado')
     
+    suma_monto = recaudaciones.aggregate(monto=Sum('monto'))
     cobradores = Cobrador.objects.all()
 
     context = {
         'recaudaciones': recaudaciones,
         'cobradores': cobradores,
+        'suma_monto': suma_monto
     }
     return render(request, 'recaudaciones/index.html', context)
 @login_required(login_url='login')
