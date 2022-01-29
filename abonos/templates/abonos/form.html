@@ -18,9 +18,14 @@
       {% if abono is not None %}
       <option value={{abono.cobrador.id}}>{{abono.cobrador}}</option>
       {%endif%}
+      {% for cobrador in cobrador_usuario %}
+      <option value={{cobrador.id}}>{{cobrador.nombre}}</option>
+      {% endfor %}
+      {% if request.user.is_superuser %}
       {% for cobrador in cobradores %}
       <option value={{cobrador.id}}>{{cobrador.nombre}}</option>
       {% endfor %}
+      {% endif %}
     </select>
   </div>
 

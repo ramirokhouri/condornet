@@ -143,11 +143,13 @@ def recaudaciones(request):
     return render(request, 'recaudaciones/index.html', context)
 @login_required(login_url='login')
 def agregar_recaudacion(request):
-    cobradores = Cobrador.objects.all()
+    cobradores = Cobrador.objects.filter(activo=True)
     formulario = RecaudacionForm(request.POST or None, request.FILES or None)
+    usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
     context = {
         'formulario': formulario,
-        'cobradores': cobradores
+        'cobradores': cobradores,
+        'usuario_cobrador': usuario_cobrador,
     }
     if formulario.is_valid():
         formulario.save()
@@ -157,9 +159,13 @@ def agregar_recaudacion(request):
 def editar_recaudacion(request, id):
     recaudacion = Recaudacion.objects.get(id=id)
     formulario = RecaudacionForm(request.POST or None, request.FILES or None, instance=recaudacion)
+    usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
+    cobradores = Cobrador.objects.filter(activo=True)
     context = {
         'formulario':formulario,
-        'recaudacion': recaudacion
+        'recaudacion': recaudacion,
+        'usuario_cobrador': usuario_cobrador,
+        'cobradores': cobradores
     }
     if formulario.is_valid() and request.POST:
         formulario.save()
@@ -200,13 +206,15 @@ def abonos(request):
     return render(request, 'abonos/index.html', context)
 @login_required(login_url='login')
 def agregar_abono(request):
-    cobradores = Cobrador.objects.all()
-    clientes = Cliente.objects.all()
+    cobradores = Cobrador.objects.filter(activo=True)
+    clientes = Cliente.objects.filter(activo=True)
     formulario = AbonoForm(request.POST or None, request.FILES or None)
+    usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
     context = {
         'formulario': formulario,
         'cobradores': cobradores,
         'clientes': clientes,
+        'usuario_cobrador': usuario_cobrador
     }
     if formulario.is_valid():
         formulario.save()
@@ -216,13 +224,15 @@ def agregar_abono(request):
 def editar_abono(request, id):
     abono = Abono.objects.get(id=id)
     formulario = AbonoForm(request.POST or None, request.FILES or None, instance=abono)
-    cobradores = Cobrador.objects.all()
-    clientes = Cliente.objects.all()
+    cobradores = Cobrador.objects.filter(activo=True)
+    clientes = Cliente.objects.filter(activo=True)
+    usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
     context = {
-        'formulario':formulario,
-        'cobradores':cobradores,
-        'clientes':clientes,
-        'abono':abono
+        'formulario': formulario,
+        'cobradores': cobradores,
+        'clientes': clientes,
+        'abono': abono,
+        'usuario_cobrador': usuario_cobrador
     }
     if formulario.is_valid() and request.POST:
         formulario.save()
