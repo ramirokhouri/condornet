@@ -5,6 +5,8 @@ from django.db import models
 from django.db.models.deletion import DO_NOTHING, SET_NULL
 from django.contrib.auth.models import User
 
+from datetime import datetime
+
 class Cliente(models.Model):
     """Modelo Clientes"""
 
@@ -23,7 +25,7 @@ class Cliente(models.Model):
     class Meta:
         verbose_name = "Cliente"
         verbose_name_plural = "Clientes"
-        ordering = ['modificado', 'creado']
+        ordering = ['-modificado', '-creado']
 
 class Cobrador(models.Model):
     """Modelo Cobradores"""
@@ -43,7 +45,7 @@ class Cobrador(models.Model):
     class Meta:
         verbose_name = "Cobrador"
         verbose_name_plural = "Cobradores"
-        ordering = ['modificado', 'creado']
+        ordering = ['-modificado', '-creado']
 
 class Abono(models.Model):
     """Modelo Abonos"""
@@ -58,9 +60,10 @@ class Abono(models.Model):
         on_delete=SET_NULL
         )
     
-    fecha = models.DateField(
+    fecha = models.DateTimeField(
         blank=True,
         null=True,
+        default= datetime.now,
         verbose_name="fecha"
         )
     monto = models.DecimalField(
@@ -90,7 +93,7 @@ class Abono(models.Model):
     class Meta:
         verbose_name = "Abono"
         verbose_name_plural = "Abonos"
-        ordering = ['modificado', 'creado']
+        ordering = ['-modificado', '-creado']
 
 class Recaudacion(models.Model):
     """Modelo Recaudación"""
@@ -102,9 +105,10 @@ class Recaudacion(models.Model):
         on_delete=SET_NULL
         )
     
-    fecha = models.DateField(
+    fecha = models.DateTimeField(
         blank=True,
         null=True,
+        default= datetime.now,
         verbose_name="fecha"
         )
     monto = models.DecimalField(
@@ -129,4 +133,4 @@ class Recaudacion(models.Model):
     class Meta:
         verbose_name = "Recaudación"
         verbose_name_plural = "Recaudaciones"
-        ordering = ['modificado', 'creado']
+        ordering = ['-modificado', '-creado']
