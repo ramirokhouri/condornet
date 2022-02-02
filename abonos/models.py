@@ -49,34 +49,45 @@ class Cobrador(models.Model):
 
 class Abono(models.Model):
     """Modelo Abonos"""
+    # fk cliente
     cliente = models.ForeignKey(
         'Cliente',
         null=True,
         on_delete=SET_NULL
         )
+    #fk cobrador
     cobrador = models.ForeignKey(
         'Cobrador',
         null=True,
         on_delete=SET_NULL
         )
-    
+    #fk recaudación
+    recaudacion = models.ForeignKey(
+        'Recaudacion',
+        null=True,
+        on_delete=SET_NULL,
+    )
+
     fecha = models.DateTimeField(
         blank=True,
         null=True,
         default= datetime.now,
         verbose_name="fecha"
         )
+
     monto = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0.00,
         verbose_name="monto"
         )
+
     nota = models.CharField(
         max_length=100,
         blank=True,
         verbose_name="nota"
         )
+
     concepto = models.CharField(
         max_length=20,
         blank=True,
@@ -111,12 +122,14 @@ class Recaudacion(models.Model):
         default= datetime.now,
         verbose_name="fecha"
         )
+        
     monto = models.DecimalField(
         max_digits=10,
         decimal_places=2,
         default=0.00,
         verbose_name="monto"
         )
+
     nota = models.CharField(
         max_length=100,
         blank=True,
