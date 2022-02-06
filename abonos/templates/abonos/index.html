@@ -77,6 +77,7 @@
                     <td>{{ abono.cobrador.nombre }}</td>
                     <td>{{ abono.concepto }}</td>
                     <td>{{ abono.nota }}</td>
+                    <td>{{ abono.recaudacion }}</td>
                     <td>
                         {% if abono.cobrador.usuario == request.user or request.user.is_superuser %}
                         <a name="" id="" class="btn btn-primary" href="{% url 'editar_abono' abono.id%}" role="button">Editar</a>

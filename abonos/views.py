@@ -210,7 +210,11 @@ def abonos(request):
 @login_required(login_url='login')
 def agregar_abono(request):
     cobradores = Cobrador.objects.filter(activo=True)
-    clientes = Cliente.objects.filter(activo=True)
+    if request.GET.get('cliente_id') != None:
+        cliente_id = request.GET.get('cliente_id')
+        clientes = Cliente.objects.filter(id = cliente_id)
+    else:
+        clientes = Cliente.objects.filter(activo=True)
     formulario = AbonoForm(request.POST or None, request.FILES or None)
     usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
     context = {
