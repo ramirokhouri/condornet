@@ -145,18 +145,29 @@ def recaudaciones(request):
     }
     return render(request, 'recaudaciones/index.html', context)
 @login_required(login_url='login')
-def agregar_recaudacion(request):
-    cobradores = Cobrador.objects.filter(activo=True)
+def agregar_recaudacion(request, cobrador_id):
+    """
+    agregar recaudación de un cobrador particular
+    fecha creado auto
+    cobrador auto
+    monto sugerido = suma de abonos sin recaudación de cobrador
+    """
     formulario = RecaudacionForm(request.POST or None, request.FILES or None)
-    usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
+    cobrador = Cobrador.objects.get(id = cobrador_id)
+    abonos = Abono.objects.filter(cobrador=cobrador).filter(recaudacion=None)
+    suma_abonos = Abono.objects.filter(cobrador=cobrador).filter(recaudacion=None).aggregate(monto=Sum('monto'))
+    print(abonos)
     context = {
         'formulario': formulario,
-        'cobradores': cobradores,
-        'usuario_cobrador': usuario_cobrador,
+        'cobrador': cobrador,
+        'suma_abonos': suma_abonos
     }
     if formulario.is_valid():
         formulario.save()
+        recaudacion = Recaudacion.objects.latest('creado')
+        actualizar_abono(abonos,recaudacion)
         return redirect('recaudaciones')
+
     return render(request, 'recaudaciones/crear.html', context)
 @login_required(login_url='login')
 def editar_recaudacion(request, id):
@@ -250,3 +261,8 @@ def eliminar_abono(request, id):
     abono = Abono.objects.get(id=id)
     abono.delete()
     return redirect('abonos')
+
+def actualizar_abono(abonos,recaudacion):
+    for abono in abonos:
+        abono.recaudacion = recaudacion
+        abono.save()

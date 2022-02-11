@@ -6,13 +6,8 @@
       {% if recaudacion is not None %}
       <option value={{recaudacion.cobrador.id}}>{{recaudacion.cobrador}}</option>
       {% endif %}
-      {% for cobrador in usuario_cobrador %}
-      <option value={{cobrador.id}}>{{cobrador.nombre}}</option>
-      {% endfor %}
       {% if request.user.is_superuser %}
-      {% for cobrador in cobradores %}
       <option value={{cobrador.id}}>{{cobrador.nombre}}</option>
-      {% endfor %}
       {%endif%}
     </select>
   </div>
@@ -37,8 +32,8 @@
     name="monto"
     id="monto"
     aria-describedby="helpId"
-    placeholder="1000,00"
-    value="{{ recaudacion.monto | default:''}}">
+    placeholder="1000"
+    value="{{ recaudacion.monto | default:suma_abonos.monto }}">
   </div>
 
   <div class="mb-3">

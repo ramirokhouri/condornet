@@ -19,7 +19,9 @@
 
 <div class="card">
     <div class="card-header d-flex justify-content-end">
+        {% if request.user.is_superuser %}
         <a name="" id="" class="btn btn-success" href="{% url 'agregar_cobrador' %}" role="button">Agregar Cobrador</a>
+        {% endif %}
     </div>
     <div class="card-body">
         <table class="table table-striped table-hover">
@@ -32,6 +34,7 @@
                     <th>CREADO</th>
                     <th>EDITADO</th>
                     <th>ACCIONES</th>
+                    <th>ADMINISTRAR</th>
                     {% endif %}
                 </tr>
             </thead>
@@ -44,6 +47,9 @@
                     {% if request.user.is_superuser %}
                     <td>{{ cobrador.creado }}</td>
                     <td>{{ cobrador.editado }}</td>
+                    <td>
+                        <a name="" id="" class="btn btn-success" href="{% url 'agregar_recaudacion' cobrador.id %}" role="button">Agregar Recaudación</a>
+                    </td>
                     <td>
                         <a name="" id="" class="btn btn-primary" href="{% url 'editar_cobrador' cobrador.id%}" role="button">Editar</a>
                         <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cobrador' cobrador.id %}" role="button">Borrar</a>

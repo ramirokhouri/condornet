@@ -26,6 +26,7 @@ class Cliente(models.Model):
         verbose_name = "Cliente"
         verbose_name_plural = "Clientes"
         ordering = ['-modificado', '-creado']
+        unique_together = ['apellido', 'nombre']
 
 class Cobrador(models.Model):
     """Modelo Cobradores"""
@@ -66,6 +67,7 @@ class Abono(models.Model):
         'Recaudacion',
         null=True,
         on_delete=SET_NULL,
+        default=None
     )
 
     fecha = models.DateTimeField(
@@ -140,7 +142,7 @@ class Recaudacion(models.Model):
     modificado = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        fila = self.cobrador.nombre + ", " + str(self.fecha) + ", " + str(self.monto)
+        fila = str(self.creado) + ", " + str(self.monto)
         return fila
 
     class Meta:

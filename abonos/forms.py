@@ -15,6 +15,7 @@ class AbonoForm(forms.ModelForm):
     class Meta:
         model = Abono
         fields = '__all__'
+        exclude=['recaudacion']
 
 class RecaudacionForm(forms.ModelForm):
     class Meta:

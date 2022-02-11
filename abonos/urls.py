@@ -23,7 +23,7 @@ urlpatterns = [
 
     # recaudacion
     path('recaudaciones/', views.recaudaciones, name='recaudaciones'),
-    path('recaudaciones/agregar_recaudacion/', views.agregar_recaudacion, name='agregar_recaudacion'),
+    path('recaudaciones/agregar_recaudacion/<int:cobrador_id>', views.agregar_recaudacion, name='agregar_recaudacion'),
     path('recaudaciones/editar_recaudacion/', views.editar_recaudacion, name='editar_recaudacion'),
     path('eliminar_recaudacion/<int:id>', views.eliminar_recaudacion, name='eliminar_recaudacion'),
     path('editar_recaudacion/<int:id>', views.editar_recaudacion, name='editar_recaudacion'),
