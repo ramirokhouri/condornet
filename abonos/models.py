@@ -69,7 +69,14 @@ class Abono(models.Model):
         on_delete=SET_NULL,
         default=None
     )
-
+    #fk concepto
+    concepto = models.ForeignKey(
+        'Concepto',
+        null=True,
+        on_delete=SET_NULL,
+        default=None
+        )
+    
     fecha = models.DateTimeField(
         blank=True,
         null=True,
@@ -88,12 +95,6 @@ class Abono(models.Model):
         max_length=100,
         blank=True,
         verbose_name="nota"
-        )
-
-    concepto = models.CharField(
-        max_length=20,
-        blank=True,
-        verbose_name="concepto"
         )
 
     creado = models.DateTimeField(auto_now_add=True)
@@ -148,4 +149,22 @@ class Recaudacion(models.Model):
     class Meta:
         verbose_name = "Recaudación"
         verbose_name_plural = "Recaudaciones"
+        ordering = ['-modificado', '-creado']
+
+class Concepto(models.Model):
+    """Modelo Conceptos"""
+    
+    año = models.IntegerField()
+    mes = models.IntegerField()
+
+    creado = models.DateTimeField(auto_now_add=True)
+    modificado = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        fila = str(self.año) + '/' + str(self.mes)
+        return fila
+    
+    class Meta:
+        verbose_name = "Concepto"
+        verbose_name_plural = "Conceptos"
         ordering = ['-modificado', '-creado']

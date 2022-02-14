@@ -7,7 +7,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
 # App
-from .models import Cliente, Cobrador, Abono, Recaudacion
+from .models import Cliente, Cobrador, Abono, Recaudacion, Concepto
 from .forms import ClienteForm, CobradorForm, AbonoForm, RecaudacionForm
 
 
@@ -199,23 +199,25 @@ def abonos(request):
         query_cobrador = request.GET.get('query_cobrador')
         abonos = Abono.objects.filter(cobrador__id = query_cobrador).order_by('-creado')
     
-    # filtro mes
-    if request.GET.get('query_mes') != None:
-        query_mes = request.GET.get('query_mes')
-        abonos = Abono.objects.filter(fecha__month = query_mes).order_by('-creado')
+    # filtro concepto
+    if request.GET.get('query_concepto') != None:
+        query_concepto = request.GET.get('query_concepto')
+        abonos = Abono.objects.filter(concepto = query_concepto).order_by('-creado')
 
     #filtro cliente
     if request.GET.get('query_cliente') != None:
         query_cliente = request.GET.get('query_cliente')
         abonos = Abono.objects.filter(cliente__id = query_cliente).order_by('-creado')
     
-    if request.GET.get('query_cliente') == None and request.GET.get('query_cobrador') == None and request.GET.get('query_mes') == None:
+    if request.GET.get('query_cliente') == None and request.GET.get('query_cobrador') == None and request.GET.get('query_concepto') == None:
         abonos = Abono.objects.all().order_by('-creado')
     
+    conceptos = Concepto.objects.all().order_by('-creado')
     cobradores = Cobrador.objects.all()
     context = {
         'abonos': abonos,
         'cobradores': cobradores,
+        'conceptos': conceptos,
     }
     return render(request, 'abonos/index.html', context)
 @login_required(login_url='login')
@@ -228,10 +230,12 @@ def agregar_abono(request):
         clientes = Cliente.objects.filter(activo=True)
     formulario = AbonoForm(request.POST or None, request.FILES or None)
     usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
+    conceptos = Concepto.objects.all().order_by('-creado')
     context = {
         'formulario': formulario,
         'cobradores': cobradores,
         'clientes': clientes,
+        'conceptos': conceptos,
         'usuario_cobrador': usuario_cobrador
     }
     if formulario.is_valid():
@@ -245,11 +249,13 @@ def editar_abono(request, id):
     cobradores = Cobrador.objects.filter(activo=True)
     clientes = Cliente.objects.filter(activo=True)
     usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
+    conceptos = Concepto.objects.all().order_by('-creado')
     context = {
         'formulario': formulario,
         'cobradores': cobradores,
         'clientes': clientes,
         'abono': abono,
+        'conceptos': conceptos,
         'usuario_cobrador': usuario_cobrador
     }
     if formulario.is_valid() and request.POST:

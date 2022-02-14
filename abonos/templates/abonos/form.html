@@ -55,14 +55,14 @@
 
   <div class="mb-3">
     <label for="" class="form-label">Concepto</label>
-    <input
-    type="text"
-    class="form-control"
-    name="concepto"
-    id="concepto"
-    aria-describedby="helpId"
-    placeholder="Concepto"
-    value="{{ abono.concepto | default:''}}">
+    <select class="form-control" name="concepto" id="concepto">
+      {% if abono is not None %}
+      <option value={{abono.concepto.id}}>{{abono.concepto}}</option>
+      {%endif%}
+      {% for concepto in conceptos %}
+      <option value={{concepto.id}}>{{concepto.año}}/{{concepto.mes}}</option>
+      {% endfor %}
+    </select>
   </div>
 
   <div class="mb-3">

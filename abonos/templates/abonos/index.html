@@ -18,31 +18,20 @@
     </div>
 </div>
 <br>
-<!-- <div class="card">
+<div class="card">
     <div class="card-header">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMeses" aria-expanded="true" aria-controls="collapseMeses">
-            MESES
-        </button>
+        <h3>Conceptos</h3>
     </div>
     <div class="card-body">
         <div class="list-group">
-            <li class="list-group-item"><a href="{% url 'abonos' %}">Todos</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=01">Enero</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=02">Febrero</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=03">Marzo</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=04">Abril</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=05">Mayo</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=06">Junio</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=07">Julio</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=08">Agosto</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=09">Septiembre</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=10">Octubre</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=11">Noviembre</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_mes=12">Diciembre</a></li>
+            <li class="list-group-item"><a href="{% url 'abonos' %}">TODOS</a></li>
+            {% for concepto in conceptos %}
+            <li class="list-group-item"><a href="{% url 'abonos' %}?query_concepto={{concepto.id}}">{{concepto.año}}/{{concepto.mes}}</a></li>
+            {% endfor %}
         </div>
     </div>
-</div> -->
-
+</div>
+<br>
 {% endblock %}
 
 {% block contenido %}
