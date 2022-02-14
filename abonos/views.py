@@ -127,12 +127,7 @@ def recaudaciones(request):
         query_cobrador = request.GET.get('query_cobrador')
         recaudaciones = Recaudacion.objects.filter(cobrador__id=query_cobrador).order_by('-creado')
 
-    # filtro mes
-    if request.GET.get('query_mes') != None:
-        query_mes = request.GET.get('query_mes')
-        recaudaciones = Recaudacion.objects.filter(fecha__month=query_mes).order_by('-creado')
-
-    if request.GET.get('query_cobrador') == None and request.GET.get('query_mes') == None:
+    if request.GET.get('query_cobrador') == None:
         recaudaciones = Recaudacion.objects.all().order_by('-creado')
     
     suma_monto = recaudaciones.aggregate(monto=Sum('monto'))
@@ -175,11 +170,13 @@ def editar_recaudacion(request, id):
     formulario = RecaudacionForm(request.POST or None, request.FILES or None, instance=recaudacion)
     usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
     cobradores = Cobrador.objects.filter(activo=True)
+    suma_abonos = Abono.objects.filter(cobrador=recaudacion.cobrador).filter(recaudacion=recaudacion).aggregate(monto=Sum('monto'))
     context = {
         'formulario':formulario,
         'recaudacion': recaudacion,
         'usuario_cobrador': usuario_cobrador,
-        'cobradores': cobradores
+        'cobradores': cobradores,
+        'suma_abonos': suma_abonos,
     }
     if formulario.is_valid() and request.POST:
         formulario.save()

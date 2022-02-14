@@ -68,10 +68,10 @@
                     <td>{{ abono.recaudacion }}</td>
                     <td>
                         {% if abono.cobrador.usuario == request.user or request.user.is_superuser %}
-                        <a name="" id="" class="btn btn-primary" href="{% url 'editar_abono' abono.id%}" role="button">Editar</a>
+                        <a name="" id="" class="btn btn-primary" href="{% url 'editar_abono' abono.id%}" role="button"><i class="bi bi-pen"></i></a>
                         {% endif %}
                         {% if request.user.is_superuser %}
-                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_abono' abono.id %}" role="button">Borrar</a>
+                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_abono' abono.id %}" role="button"><i class="bi bi-trash"></i></a>
                         {% endif %}
                     </td>
                 </tr>

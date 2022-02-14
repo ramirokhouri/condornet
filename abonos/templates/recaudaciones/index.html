@@ -19,31 +19,6 @@
     </div>
 </div>
 <br>
-<!-- filtro meses
-<div class="card">
-    <div class="card-header">
-        <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMeses" aria-expanded="false" aria-controls="collapseMeses">
-            MESES
-        </button>
-    </div>
-    <div class="card-body">
-        <div class="list-group">
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}">Todos</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=01">Enero</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=02">Febrero</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=03">Marzo</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=04">Abril</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=05">Mayo</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=06">Junio</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=07">Julio</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=08">Agosto</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=09">Septiembre</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=10">Octubre</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=11">Noviembre</a></li>
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_mes=12">Diciembre</a></li>
-        </div>
-    </div>
-</div> -->
 
 {% endblock %}
 
@@ -75,9 +50,9 @@
                     <td>{{ recaudacion.nota }}</td>
                     <td>
                         {% if recaudacion.cobrador.usuario == request.user or request.user.is_superuser %}
-                        <a name="" id="" class="btn btn-primary" href="{% url 'editar_recaudacion' recaudacion.id%}" role="button">Editar</a>
+                        <a name="" id="" class="btn btn-primary" href="{% url 'editar_recaudacion' recaudacion.id%}" role="button"><i class="bi bi-pen"></i></a>
                         {% if request.user.is_superuser %}
-                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_recaudacion' recaudacion.id %}" role="button">Borrar</a>
+                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_recaudacion' recaudacion.id %}" role="button"><i class="bi bi-trash"></i></a>
                         {% endif %}
                         {% endif %}
                     </td>

@@ -48,11 +48,11 @@
                     <td>{{ cobrador.creado }}</td>
                     <td>{{ cobrador.editado }}</td>
                     <td>
-                        <a name="" id="" class="btn btn-success" href="{% url 'agregar_recaudacion' cobrador.id %}" role="button">Agregar Recaudación</a>
+                        <a name="" id="" class="btn btn-success" href="{% url 'agregar_recaudacion' cobrador.id %}" role="button"><i class="bi bi-cash-coin"></i></a>
                     </td>
                     <td>
-                        <a name="" id="" class="btn btn-primary" href="{% url 'editar_cobrador' cobrador.id%}" role="button">Editar</a>
-                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cobrador' cobrador.id %}" role="button">Borrar</a>
+                        <a name="" id="" class="btn btn-primary" href="{% url 'editar_cobrador' cobrador.id%}" role="button"><i class="bi bi-pen"></i></a>
+                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cobrador' cobrador.id %}" role="button"><i class="bi bi-trash"></i></a>
                     </td>
                     {% endif %}
                 </tr>
