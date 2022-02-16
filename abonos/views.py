@@ -1,4 +1,5 @@
 # Django
+from cgitb import lookup
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse
@@ -6,6 +7,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.db.models import Sum
+from django.db.models import Q
 # App
 from .models import Cliente, Cobrador, Abono, Recaudacion, Concepto
 from .forms import ClienteForm, CobradorForm, AbonoForm, RecaudacionForm
@@ -170,7 +172,7 @@ def editar_recaudacion(request, id):
     formulario = RecaudacionForm(request.POST or None, request.FILES or None, instance=recaudacion)
     usuario_cobrador = Cobrador.objects.filter(usuario=request.user)
     cobradores = Cobrador.objects.filter(activo=True)
-    suma_abonos = Abono.objects.filter(cobrador=recaudacion.cobrador).filter(recaudacion=recaudacion).aggregate(monto=Sum('monto'))
+    suma_abonos = Abono.objects.filter(recaudacion=recaudacion).aggregate(monto=Sum('monto'))
     context = {
         'formulario':formulario,
         'recaudacion': recaudacion,
@@ -205,10 +207,19 @@ def abonos(request):
     if request.GET.get('query_cliente') != None:
         query_cliente = request.GET.get('query_cliente')
         abonos = Abono.objects.filter(cliente__id = query_cliente).order_by('-creado')
-    
-    if request.GET.get('query_cliente') == None and request.GET.get('query_cobrador') == None and request.GET.get('query_concepto') == None:
+
+    #filtro recaudación
+    if request.GET.get('query_recaudacion') != None:
+        query_recaudacion = request.GET.get('query_recaudacion')
+        if query_recaudacion == "1":
+            abonos = Abono.objects.exclude(recaudacion=None).order_by('-creado')
+        if query_recaudacion == "0":
+            abonos = Abono.objects.filter(recaudacion=None).order_by('-creado')
+
+    # no filter
+    if request.GET.get('query_cliente') == None and request.GET.get('query_cobrador') == None and request.GET.get('query_concepto') == None and request.GET.get('query_recaudacion') == None:
         abonos = Abono.objects.all().order_by('-creado')
-    
+
     conceptos = Concepto.objects.all().order_by('-creado')
     cobradores = Cobrador.objects.all()
     context = {
@@ -255,6 +266,7 @@ def editar_abono(request, id):
         'conceptos': conceptos,
         'usuario_cobrador': usuario_cobrador
     }
+    print(abono.monto)
     if formulario.is_valid() and request.POST:
         formulario.save()
         return redirect('abonos')
