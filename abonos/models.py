@@ -47,6 +47,7 @@ class Cobrador(models.Model):
         verbose_name = "Cobrador"
         verbose_name_plural = "Cobradores"
         ordering = ['-modificado', '-creado']
+        unique_together = ['nombre']       
 
 class Abono(models.Model):
     """Modelo Abonos"""
