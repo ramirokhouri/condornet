@@ -26,7 +26,11 @@
 
 <div class="card">
     <div class="card-header d-flex justify-content-end">
-        <a name="" id="" class="btn btn-primary" href="#">Total Recaudado ${{suma_monto.monto}}</a>
+        {% if suma_monto.monto == None %}
+        <a name="" id="" class="btn btn-primary" href="#">Total Recaudado:  $0</a>
+        {% else %}
+        <a name="" id="" class="btn btn-primary" href="#">Total Recaudado:  ${{suma_monto.monto}}</a>
+        {% endif %}
     </div>
     <div class="card-body">
         <table class="table table-striped table-hover">
