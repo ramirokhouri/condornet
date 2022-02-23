@@ -133,11 +133,10 @@ def recaudaciones(request):
     
     suma_monto = recaudaciones.aggregate(monto=Sum('monto'))
     cobradores = Cobrador.objects.all()
-
     context = {
         'recaudaciones': recaudaciones,
         'cobradores': cobradores,
-        'suma_monto': suma_monto
+        'suma_monto': suma_monto,
     }
     return render(request, 'recaudaciones/index.html', context)
 @login_required(login_url='login')
@@ -207,16 +206,21 @@ def abonos(request):
         query_cliente = request.GET.get('query_cliente')
         abonos = Abono.objects.filter(cliente__id = query_cliente).order_by('-creado')
 
-    #filtro recaudación
+    # filtro recaudacion
     if request.GET.get('query_recaudacion') != None:
         query_recaudacion = request.GET.get('query_recaudacion')
+        abonos = Abono.objects.filter(recaudacion = query_recaudacion).order_by('-creado')
+
+    #filtro recaudaciones
+    if request.GET.get('query_recaudaciones') != None:
+        query_recaudacion = request.GET.get('query_recaudaciones')
         if query_recaudacion == "1":
             abonos = Abono.objects.exclude(recaudacion=None).order_by('-creado')
         if query_recaudacion == "0":
             abonos = Abono.objects.filter(recaudacion=None).order_by('-creado')
 
     # no filter
-    if request.GET.get('query_cliente') == None and request.GET.get('query_cobrador') == None and request.GET.get('query_concepto') == None and request.GET.get('query_recaudacion') == None:
+    if request.GET.get('query_cliente') == None and request.GET.get('query_cobrador') == None and request.GET.get('query_concepto') == None and request.GET.get('query_recaudaciones') == None and request.GET.get('query_recaudacion') == None:
         abonos = Abono.objects.all().order_by('-creado')
 
     conceptos = Concepto.objects.all().order_by('-creado')

@@ -33,37 +33,41 @@
         {% endif %}
     </div>
     <div class="card-body">
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>FECHA</th>
-                    <th>COBRADOR</th>
-                    <th>MONTO</th>
-                    <th>NOTA</th>
-                    <th>ADMINISTRAR</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for recaudacion in recaudaciones %}
-                <tr>
-                    <td>{{ recaudacion.id }}</td>
-                    <td>{{ recaudacion.fecha|date:"d/m/Y" }}</td>
-                    <td>{{ recaudacion.cobrador.nombre }}</td>
-                    <td>{{ recaudacion.monto }}</td>
-                    <td>{{ recaudacion.nota }}</td>
-                    <td>
-                        {% if recaudacion.cobrador.usuario == request.user or request.user.is_superuser %}
-                        <a name="" id="" class="btn btn-primary" href="{% url 'editar_recaudacion' recaudacion.id%}" role="button"><i class="bi bi-pen"></i></a>
-                        {% if request.user.is_superuser %}
-                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_recaudacion' recaudacion.id %}" role="button"><i class="bi bi-trash"></i></a>
-                        {% endif %}
-                        {% endif %}
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>FECHA</th>
+                        <th>COBRADOR</th>
+                        <th>MONTO</th>
+                        <th>NOTA</th>
+                        <th>ADMINISTRAR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for recaudacion in recaudaciones %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'abonos'%}?query_recaudacion={{ recaudacion.id }}">{{ recaudacion.id }}</a>
+                        </td>
+                        <td>{{ recaudacion.fecha|date:"d/m/Y" }}</td>
+                        <td>{{ recaudacion.cobrador.nombre }}</td>
+                        <td>{{ recaudacion.monto }}</td>
+                        <td>{{ recaudacion.nota }}</td>
+                        <td>
+                            {% if recaudacion.cobrador.usuario == request.user or request.user.is_superuser %}
+                            <a name="" id="" class="btn btn-primary" href="{% url 'editar_recaudacion' recaudacion.id%}" role="button"><i class="bi bi-pen"></i></a>
+                            {% if request.user.is_superuser %}
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_recaudacion' recaudacion.id %}" role="button"><i class="bi bi-trash"></i></a>
+                            {% endif %}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="card-footer text-muted">
     </div>

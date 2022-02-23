@@ -24,41 +24,43 @@
         {% endif %}
     </div>
     <div class="card-body">
-        <table class="table table-striped table-hover">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>NOMBRE</th>
-                    <th>USUARIO</th>
-                    {% if request.user.is_superuser %}
-                    <th>CREADO</th>
-                    <th>EDITADO</th>
-                    <th>ACCIONES</th>
-                    <th>ADMINISTRAR</th>
-                    {% endif %}
-                </tr>
-            </thead>
-            <tbody>
-                {% for cobrador in cobradores %}
-                <tr>
-                    <td>{{ cobrador.id }}</td>
-                    <td>{{ cobrador.nombre }}</td>
-                    <td>{{ cobrador.usuario }}</td>
-                    {% if request.user.is_superuser %}
-                    <td>{{ cobrador.creado }}</td>
-                    <td>{{ cobrador.editado }}</td>
-                    <td>
-                        <a name="" id="" class="btn btn-success" href="{% url 'agregar_recaudacion' cobrador.id %}" role="button"><i class="bi bi-cash-coin"></i></a>
-                    </td>
-                    <td>
-                        <a name="" id="" class="btn btn-primary" href="{% url 'editar_cobrador' cobrador.id%}" role="button"><i class="bi bi-pen"></i></a>
-                        <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cobrador' cobrador.id %}" role="button"><i class="bi bi-trash"></i></a>
-                    </td>
-                    {% endif %}
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>NOMBRE</th>
+                        <th>USUARIO</th>
+                        {% if request.user.is_superuser %}
+                        <th>CREADO</th>
+                        <th>EDITADO</th>
+                        <th>ACCIONES</th>
+                        <th>ADMINISTRAR</th>
+                        {% endif %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cobrador in cobradores %}
+                    <tr>
+                        <td>{{ cobrador.id }}</td>
+                        <td>{{ cobrador.nombre }}</td>
+                        <td>{{ cobrador.usuario }}</td>
+                        {% if request.user.is_superuser %}
+                        <td>{{ cobrador.creado }}</td>
+                        <td>{{ cobrador.editado }}</td>
+                        <td>
+                            <a name="" id="" class="btn btn-success" href="{% url 'agregar_recaudacion' cobrador.id %}" role="button"><i class="bi bi-cash-coin"></i></a>
+                        </td>
+                        <td>
+                            <a name="" id="" class="btn btn-primary" href="{% url 'editar_cobrador' cobrador.id%}" role="button"><i class="bi bi-pen"></i></a>
+                            <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cobrador' cobrador.id %}" role="button"><i class="bi bi-trash"></i></a>
+                        </td>
+                        {% endif %}
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </div>
     <div class="card-footer text-muted">
     </div>
