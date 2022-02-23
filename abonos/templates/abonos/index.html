@@ -2,56 +2,14 @@
 
 {% block titulo %} Lista de Abonos {% endblock %}
 
-{% block sidebar %}
-
-<div class="card">
-    <div class="card-header">
-        <h3>Cobradores</h3>
-    </div>
-    <div class="card-body">
-        <div class="list-group">
-            <li class="list-group-item"><a href="{% url 'abonos' %}">TODOS</a></li>
-            {% for cobrador in cobradores %}
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_cobrador={{cobrador.id}}">{{ cobrador.nombre }}</a></li>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-<br>
-<div class="card">
-    <div class="card-header">
-        <h3>Recaudados</h3>
-    </div>
-    <div class="card-body">
-        <div class="list-group">
-            <li class="list-group-item"><a href="{% url 'abonos' %}">TODOS</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_recaudaciones=1">Con Recaudación</a></li>
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_recaudaciones=0">Sin Recaudación</a></li>
-        </div>
-    </div>
-</div>
-<br>
-<div class="card">
-    <div class="card-header">
-        <h3>Conceptos</h3>
-    </div>
-    <div class="card-body">
-        <div class="list-group">
-            <li class="list-group-item"><a href="{% url 'abonos' %}">TODOS</a></li>
-            {% for concepto in conceptos %}
-            <li class="list-group-item"><a href="{% url 'abonos' %}?query_concepto={{concepto.id}}">{{ concepto.año }}/{{ concepto.mes }}</a></li>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-<br>
-{% endblock %}
-
 {% block contenido %}
 
 <div class="card">
-    <div class="card-header d-flex justify-content-end">
-        <a name="" id="" class="btn btn-success" href="{% url 'agregar_abono' %}" role="button">Agregar Abono</a>
+    <div class="card-header d-flex justify-content-between">
+        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#filtros" role="button" aria-controls="filtros">
+            <i class="bi bi-funnel"></i>
+        </a>
+        <a class="btn btn-success" href="{% url 'agregar_abono' %}" role="button">Agregar Abono</a>
     </div>
     <div class="card-body">
         <div class="table-responsive">
@@ -95,6 +53,55 @@
         </div>
     </div>
     <div class="card-footer text-muted">
+    </div>
+</div>
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="filtros" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filtrar</h5>
+      <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <div class="card">
+            <div class="card-header">
+                <h4>Cobradores</h4>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <li class="list-group-item"><a href="{% url 'abonos' %}">TODOS</a></li>
+                    {% for cobrador in cobradores %}
+                    <li class="list-group-item"><a href="{% url 'abonos' %}?query_cobrador={{cobrador.id}}">{{ cobrador.nombre }}</a></li>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h4>Recaudados</h4>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <li class="list-group-item"><a href="{% url 'abonos' %}">TODOS</a></li>
+                    <li class="list-group-item"><a href="{% url 'abonos' %}?query_recaudaciones=1">Con Recaudación</a></li>
+                    <li class="list-group-item"><a href="{% url 'abonos' %}?query_recaudaciones=0">Sin Recaudación</a></li>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="card">
+            <div class="card-header">
+                <h4>Conceptos</h4>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    <li class="list-group-item"><a href="{% url 'abonos' %}">TODOS</a></li>
+                    {% for concepto in conceptos %}
+                    <li class="list-group-item"><a href="{% url 'abonos' %}?query_concepto={{concepto.id}}">{{ concepto.año }}/{{ concepto.mes }}</a></li>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

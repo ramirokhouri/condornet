@@ -2,30 +2,13 @@
 
 {% block titulo %} Lista de Recaudaciones {% endblock %}
 
-{% block sidebar %}
-
-<!-- filtro cobradores -->
-<div class="card">
-    <div class="card-header">
-        <h3>Cobradores</h3>
-    </div>
-    <div class="card-body">
-        <div class="list-group">
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}">TODOS</a></li>
-            {% for cobrador in cobradores %}
-            <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_cobrador={{cobrador.id}}">{{ cobrador.nombre }}</a></li>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-<br>
-
-{% endblock %}
-
 {% block contenido %}
 
 <div class="card">
-    <div class="card-header d-flex justify-content-end">
+    <div class="card-header d-flex justify-content-between">
+        <a class="btn btn-primary" data-bs-toggle="offcanvas" href="#filtros" role="button" aria-controls="filtros">
+            <i class="bi bi-funnel"></i>
+        </a>
         {% if suma_monto.monto == None %}
         <a name="" id="" class="btn btn-primary" href="#">Total Recaudado:  $0</a>
         {% else %}
@@ -69,6 +52,29 @@
             </table>
         </div>
     </div>
+
+    <div class="offcanvas offcanvas-start" tabindex="-1" id="filtros" aria-labelledby="offcanvasExampleLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasExampleLabel">Filtrar</h5>
+          <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Cobradores</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        <li class="list-group-item"><a href="{% url 'recaudaciones' %}">TODOS</a></li>
+                        {% for cobrador in cobradores %}
+                        <li class="list-group-item"><a href="{% url 'recaudaciones' %}?query_cobrador={{cobrador.id}}">{{ cobrador.nombre }}</a></li>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="card-footer text-muted">
     </div>
 </div>
