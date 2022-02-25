@@ -10,7 +10,7 @@
     </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-sm table-striped table-hover">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -18,8 +18,6 @@
                         <th>NOMBRE</th>
                         {% if request.user.is_authenticated %}
                         <th>ACCIONES</th>
-                        {% endif %}
-                        {% if request.user.is_superuser %}
                         <th>ADMINISTRAR</th>
                         {% endif %}
                     </tr>
@@ -33,11 +31,12 @@
                         {% if request.user.is_authenticated %}
                         <td><a name="" id="" class="btn btn-success" href="{% url 'agregar_abono' %}?cliente_id={{ cliente.id }}" role="button">Agregar Abono</td>
                         {% endif %}
-                        {% if request.user.is_superuser %}
-                        <td><a name="" id="" class="btn btn-primary" href="{% url 'editar_cliente' cliente.id%}" role="button"><i class="bi bi-pen"></i></a>
+                        <td>
+                            <a name="" id="" class="btn btn-primary" href="{% url 'editar_cliente' cliente.id%}" role="button"><i class="bi bi-pen"></i></a>
+                            {% if request.user.is_superuser %}
                             <a name="" id="" class="btn btn-danger" href="{% url 'eliminar_cliente' cliente.id %}" role="button"><i class="bi bi-trash"></i></a>
+                            {% endif %}
                         </td>
-                        {% endif %}
                     </tr>
                     {% endfor %}
                 </tbody>

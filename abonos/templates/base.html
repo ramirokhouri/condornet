@@ -24,7 +24,9 @@
           <div class="nav navbar-nav me-auto">
             <a class="nav-item nav-link active" href="{% url 'inicio' %}">Inicio</a>
             <a class="nav-item nav-link active" href="{% url 'clientes' %}">Clientes</a>
+            {% if request.user.is_superuser %}
             <a class="nav-item nav-link active" href="{% url 'cobradores' %}">Cobradores</a>
+            {% endif %}
             <a class="nav-item nav-link active" href="{% url 'abonos' %}">Abonos</a>
             <a class="nav-item nav-link active" href="{% url 'recaudaciones' %}">Recaudación</a>
           </div>
