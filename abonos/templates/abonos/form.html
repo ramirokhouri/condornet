@@ -2,7 +2,7 @@
   {% csrf_token %}
   <div class="mb-3">
     <label for="" class="form-label">Cliente</label>
-    <select class="form-control" name="cliente" id="cliente">
+    <select class="form-control selectpicker" name="cliente" id="cliente" data-live-search="true">
       {% if abono is not None %}
       <option value={{abono.cliente.id}}>{{abono.cliente}}</option>
       {%endif%}
